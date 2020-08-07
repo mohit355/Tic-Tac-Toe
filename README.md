@@ -62,8 +62,33 @@ The main purpose of this project is to convert this paper-and-pencil game to a s
     >Step6: Load that folder in **Intelij IDEA IDE**. (not ready to run need some setup)
     >Step7: Set src folder as source folder (File-> project structure -> Modules -> src -> Sources)
     >Step8: Set images folder as Resources ( File-> project structure -> Modules -> src -> Resources)
-    >Step8: Run the program by Right click -> Run  on Main.java.
+    >Step9: Run the program by Right click -> Run  on Main.java.
     
     	NOTE: Each step is required . If you miss any step then it will show errors
+	
+	
+   ### 2. Using Command Prompt / terminal:
+   
+    >Step1: Fork this repository
+    >Step2: Click on *code* button at right side
+    >Step3: Click on **Download Zip** (download will started)
+    >Step4: Extract the file from the file (one folder will extracted from the zip which contains subfolder)
+    >Step5: Open terminal and change directory to the extracted folder.
+    >Step6: Run the following command -  ( only when your terminal path is set to that folder)
+    	command1: cd out
+	command2: cd production
+	command3: cd Tic-Tac-Toe
+	command4: java com.game.Main
+	
+    >Step7 : This will open the game in your system.
+    
+    
+    
+ ## Having any problem:
+ 
+   ### Contact me:
+                     Email: mohitraj772002@gamil.com
+		     LinkedIn: https://www.linkedin.com/in/mohit-raj-0b51aa171/
+		     Instagram: https://www.instagram.com/mohit_singh_271232/
     
 
