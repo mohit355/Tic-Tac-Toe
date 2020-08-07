@@ -32,7 +32,7 @@ The main purpose of this project is to convert this paper-and-pencil game to a s
       NOTE: All modules used in this game is in-built modules. So no need to install it.
 
 
-## Key features of My project :
+## Key features of this project :
 
 
    ### Player selection flexibility:
