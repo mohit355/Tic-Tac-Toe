@@ -511,3 +511,588 @@ public class FiveGame implements ActionListener {
     }
 
 
+
+
+    //For Disable all the box
+
+    public void lockBoard(){
+
+        for(int i=0;i<9;i++){
+            panel.getComponent(i).setEnabled(false);
+        }
+
+    }
+
+    // For Enable all the box
+
+    public void unlockedBoard() {
+        for (int i = 0; i < 9; i++) {
+            panel.getComponent(i).setEnabled(true);
+            btn[i].setIcon(null);
+
+        }
+        turn=true;
+    }
+
+
+    // COMPUTER LOGIC FUNCTION
+
+    int compLogic(){
+        int moves=0;          // variable which store the computer move
+        blank_space.clear();
+        cornersOpened.clear();
+        edgeOpened.clear();
+        for(int i=0;i<9;i++){
+            if(btn[i].getIcon()==null){
+                blank_space.add(i);
+
+            }
+        }
+
+        // Check for Win First    // computer symbol is O
+        char[] symbols={'O','X'};
+        for(char let:symbols) {
+            for (int i : blank_space) {
+                copyArray();
+                values_array_copy[i] = let;
+                if (checkWinner(values_array_copy, let)) {
+                    btn[i].setIcon(ic2);
+                    values_array[i] = 'O';
+                    if(isWinner(values_array,'O')){
+                        winnerName.setText("COMPUTER AI WON");
+                        user2wins+=1;
+                        user2Symbol.setEnabled(true);
+                        user2SymbolLabel.setEnabled(true);
+                        user1Symbol.setEnabled(false);
+                        user1SymbolLable.setEnabled(false);
+                        user2Symbol.setIcon(ic22);
+                    }
+                    turn=true;
+                    return 1;
+                }
+
+            }
+        }
+
+
+        if(btn[4].getIcon()==ic1){
+            // checking corner is opened or not
+            for(int j:blank_space){
+                if(j==0 || j==2 || j==6 || j==8){
+                    cornersOpened.add(j);
+                }
+            }
+
+            if(cornersOpened.size()>0){
+                moves=selectRandom(cornersOpened);
+                btn[moves].setIcon(ic2);
+                values_array[moves]='O';
+                turn=true;
+                return 1;
+            }
+
+
+            // checking edge is opened or not
+            for(int j:blank_space){
+                if(j==1 || j==3 || j==5 || j==7){
+                    edgeOpened.add(j);
+                }
+            }
+
+            if(edgeOpened.size()>0) {
+                moves = selectRandom(edgeOpened);
+                btn[moves].setIcon(ic2);
+                values_array[moves] = 'O';
+                turn = true;
+                return 1;
+            }
+
+        }
+        else {
+            for(int k:blank_space){
+                if(k==4){
+                    moves=4;
+                    btn[4].setIcon(ic2);
+                    values_array[4]='O';
+                    turn=true;
+                    return 1;
+                }
+            }
+
+            for(int j:blank_space){
+                if(j==0 || j==2 || j==6 || j==8){
+                    cornersOpened.add(j);
+                }
+            }
+
+            if(cornersOpened.size()>0){
+                moves=selectRandom(cornersOpened);
+                btn[moves].setIcon(ic2);
+                values_array[moves]='O';
+                turn=true;
+                return 1;
+            }
+            // checking edge is opened or not
+            for(int j:blank_space){
+                if(j==1 || j==3 || j==5 || j==7){
+                    edgeOpened.add(j);
+                }
+            }
+
+            if(edgeOpened.size()>0) {
+                moves = selectRandom(edgeOpened);
+                btn[moves].setIcon(ic2);
+                values_array[moves] = 'O';
+                turn = true;
+                return 1;
+            }
+        }
+
+        return 0;
+    }
+
+
+    int selectRandom(List<Integer> values){
+        Random rand=new Random();
+        int rand_val=rand.nextInt(values.size());
+        return values.get(rand_val);
+    }
+
+    void copyArray(){
+        for(int i=0;i<9;i++){
+            values_array_copy[i]=values_array[i];
+        }
+    }
+
+
+    //FOR SHOWING SCOREBOARD
+
+    void showScoreBoard(){
+
+        scoreBoard.removeAll();
+        scoreBoard.revalidate();
+        scoreBoard.repaint();
+        String name;
+        if(UserOrComputer.user_clicked){
+            name=StartPage.user1tf.getText()+"       vs       "+StartPage.user2tf.getText();
+        }
+        else {
+
+            name=UserName.user_name_tf.getText()+"       vs       "+"COMPUTER AI";
+        }
+
+        playernames=new JLabel(name,JLabel.CENTER);
+        playernames.setFont(new Font("Times New Roman",Font.BOLD,20));
+        playernames.setBounds(150,10,300,40);
+        scoreBoard.add(playernames);
+
+        JButton match1btn=new JButton("MATCH 1");
+        match1btn.setBounds(10,60,130,40);
+        scoreBoard.add(match1btn);
+
+        JButton match2btn=new JButton("MATCH 2");
+        match2btn.setBounds(10,120,130,40);
+        scoreBoard.add(match2btn);
+
+        JButton match3btn=new JButton("MATCH 3");
+        match3btn.setBounds(10,180,130,40);
+        scoreBoard.add(match3btn);
+
+        JButton match4btn=new JButton("MATCH 4");
+        match4btn.setBounds(10,240,130,40);
+        scoreBoard.add(match4btn);
+
+        JButton match5btn=new JButton("MATCH 5");
+        match5btn.setBounds(10,300,130,40);
+        scoreBoard.add(match5btn);
+
+
+        // declaring final winner
+        if(user1wins>user2wins){
+            if(UserOrComputer.user_clicked){
+                finalwinner=new JLabel("Final Winner : "+StartPage.user1tf.getText());
+            }
+            else {
+                finalwinner=new JLabel("Final Winner : "+UserName.user_name_tf.getText());
+            }
+        }
+        else if (user1wins<user2wins){
+            if(UserOrComputer.user_clicked){
+                finalwinner=new JLabel("Final Winner : "+StartPage.user2tf.getText());
+            }
+            else{
+                finalwinner=new JLabel("Final Winner : computer");
+            }
+        }
+        else {
+            finalwinner=new JLabel("Final Winner : Series Tie");
+        }
+
+        finalwinner.setBounds(100,400,500,40);
+        finalwinner.setFont(new Font("Times New Roman",Font.BOLD,30));
+        finalwinner.setBackground(Color.RED);
+        scoreBoard.add(finalwinner);
+
+
+
+//LABEL for shown result
+        game1Result1=new JLabel(game1r1,JLabel.CENTER);
+        game1Result1.setBounds(170,60,100,40);
+        game1Result1.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game1Result1);
+
+        game2Result1=new JLabel(game2r1,JLabel.CENTER);
+        game2Result1.setBounds(170,120,100,40);
+        game2Result1.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game2Result1);
+
+        game3Result1=new JLabel(game3r1,JLabel.CENTER);
+        game3Result1.setBounds(170,180,100,40);
+        game3Result1.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game3Result1);
+
+        game4Result1=new JLabel(game4r1,JLabel.CENTER);
+        game4Result1.setBounds(170,240,100,40);
+        game4Result1.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game4Result1);
+
+        game5Result1=new JLabel(game5r1,JLabel.CENTER);
+        game5Result1.setBounds(170,300,100,40);
+        game5Result1.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game5Result1);
+
+
+
+        game1Result2=new JLabel(game1r2,JLabel.CENTER);
+        game1Result2.setBounds(350,60,100,40);
+        game1Result2.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game1Result2);
+
+        game2Result2=new JLabel(game2r2,JLabel.CENTER);
+        game2Result2.setBounds(350,120,100,40);
+        game2Result2.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game2Result2);
+
+        game3Result2=new JLabel(game3r2,JLabel.CENTER);
+        game3Result2.setBounds(350,180,100,40);
+        game3Result2.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game3Result2);
+
+
+        game4Result2=new JLabel(game4r2,JLabel.CENTER);
+        game4Result2.setBounds(350,240,100,40);
+        game4Result2.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game4Result2);
+
+        game5Result2=new JLabel(game5r2,JLabel.CENTER);
+        game5Result2.setBounds(350,300,100,40);
+        game5Result2.setFont(new Font("Times New Roman",Font.BOLD,20));
+        scoreBoard.add(game5Result2);
+
+
+
+    }
+
+
+
+    void updateScoreboardUser1(int gameNumber){
+        String username1="null";
+        String username2="null";
+        if(UserOrComputer.user_clicked){
+            username1=StartPage.user1tf.getText().toUpperCase()+" WON";
+            username2=StartPage.user2tf.getText().toUpperCase()+" WON";
+        }
+        else{
+            username1=UserName.user_name_tf.getText().toUpperCase()+" WON";
+            username2="COMPUTER AI WON";
+        }
+
+
+//GAME1 result
+        if(gameNumber==1 && winnerName.getText().equalsIgnoreCase(username1) ){
+            game1r1="WON";
+            game1r2="LOST";
+        }
+        else if(gameNumber==1 && winnerName.getText().equalsIgnoreCase(username2) ){
+            game1r1="LOST";
+            game1r2="WON";
+        }
+        else if(gameNumber==1 && winnerName.getText().equalsIgnoreCase("MATCH TIE")){
+            game1r1="TIE";
+            game1r2="TIE";
+        }
+
+//GAME2 result
+        if(gameNumber==2 && winnerName.getText().equalsIgnoreCase(username1) ){
+            game2r1="WON";
+            game2r2="LOST";
+        }
+        else if(gameNumber==2 && winnerName.getText().equalsIgnoreCase(username2) ){
+            game2r1="LOST";
+            game2r2="WON";
+        }
+        else if(gameNumber==2 && winnerName.getText().equalsIgnoreCase("MATCH TIE")){
+            game2r1="TIE";
+            game2r2="TIE";
+        }
+
+
+        //GAME3 result
+        if(gameNumber==3 && winnerName.getText().equalsIgnoreCase(username1) ){
+            game3r1="WON";
+            game3r2="LOST";
+        }
+        else if(gameNumber==3 && winnerName.getText().equalsIgnoreCase(username2) ){
+            game3r1="LOST";
+            game3r2="WON";
+        }
+        else if(gameNumber==3 && winnerName.getText().equalsIgnoreCase("MATCH TIE")){
+            game3r1="TIE";
+            game3r2="TIE";
+        }
+
+//GAME4 result
+        if(gameNumber==4 && winnerName.getText().equalsIgnoreCase(username1) ){
+            game4r1="WON";
+            game4r2="LOST";
+        }
+        else if(gameNumber==4 && winnerName.getText().equalsIgnoreCase(username2) ){
+            game4r1="LOST";
+            game4r2="WON";
+        }
+        else if(gameNumber==4 && winnerName.getText().equalsIgnoreCase("MATCH TIE")){
+            game4r1="TIE";
+            game4r2="TIE";
+        }
+
+
+        //GAME5 result
+        if(gameNumber==5 && winnerName.getText().equalsIgnoreCase(username1) ){
+            game5r1="WON";
+            game5r2="LOST";
+        }
+        else if(gameNumber==5 && winnerName.getText().equalsIgnoreCase(username2) ){
+            game5r1="LOST";
+            game5r2="WON";
+        }
+        else if(gameNumber==5 && winnerName.getText().equalsIgnoreCase("MATCH TIE")){
+            game5r1="TIE";
+            game5r2="TIE";
+        }
+
+    }
+
+    //CHECKING WINNER
+
+
+    boolean isWinner(char[] val ,int let){
+
+        //row1
+        if (val[0]==let && val[1]==let && val[2]==let){
+            lockBoard();
+            btn[0].setEnabled(true);
+            btn[1].setEnabled(true);
+            btn[2].setEnabled(true);
+            if(let=='X'){
+                btn[0].setIcon(ic11);
+                btn[1].setIcon(ic11);
+                btn[2].setIcon(ic11);
+            }
+            else{
+                btn[0].setIcon(ic22);
+                btn[1].setIcon(ic22);
+                btn[2].setIcon(ic22);
+            }
+            return true;
+        }
+        //ROW 2
+        if(val[3]==let && val[4]==let && val[5]==let){
+            lockBoard();
+            btn[3].setEnabled(true);
+            btn[4].setEnabled(true);
+            btn[5].setEnabled(true);
+            if(let=='X'){
+                btn[3].setIcon(ic11);
+                btn[4].setIcon(ic11);
+                btn[5].setIcon(ic11);
+            }
+            else{
+                btn[3].setIcon(ic22);
+                btn[4].setIcon(ic22);
+                btn[5].setIcon(ic22);
+            }
+            return  true;
+        }
+//ROW 3
+        if (val[6]==let && val[7]==let && val[8]==let){
+            lockBoard();
+            btn[6].setEnabled(true);
+            btn[7].setEnabled(true);
+            btn[8].setEnabled(true);
+            if(let=='X'){
+                btn[6].setIcon(ic11);
+                btn[7].setIcon(ic11);
+                btn[8].setIcon(ic11);
+            }
+            else{
+                btn[6].setIcon(ic22);
+                btn[7].setIcon(ic22);
+                btn[8].setIcon(ic22);
+            }
+            return true;
+        }
+
+        //COLUMN 1
+        if(val[0]==let && val[3]==let && val[6]==let){
+            lockBoard();
+            btn[0].setEnabled(true);
+            btn[3].setEnabled(true);
+            btn[6].setEnabled(true);
+            if(let=='X'){
+                btn[0].setIcon(ic11);
+                btn[3].setIcon(ic11);
+                btn[6].setIcon(ic11);
+            }
+            else{
+                btn[0].setIcon(ic22);
+                btn[3].setIcon(ic22);
+                btn[6].setIcon(ic22);
+            }
+
+            return  true;
+        }
+
+//COLUMN 2
+        if (val[1]==let && val[4]==let && val[7]==let){
+            lockBoard();
+            btn[1].setEnabled(true);
+            btn[4].setEnabled(true);
+            btn[7].setEnabled(true);
+            if(let=='X'){
+                btn[1].setIcon(ic11);
+                btn[4].setIcon(ic11);
+                btn[7].setIcon(ic11);
+            }
+            else{
+                btn[1].setIcon(ic22);
+                btn[4].setIcon(ic22);
+                btn[7].setIcon(ic22);
+            }
+
+            return true;
+        }
+        //COLUMN 3
+        if(val[2]==let && val[5]==let && val[8]==let){
+            lockBoard();
+            btn[2].setEnabled(true);
+            btn[5].setEnabled(true);
+            btn[8].setEnabled(true);
+            if(let=='X'){
+                btn[2].setIcon(ic11);
+                btn[5].setIcon(ic11);
+                btn[8].setIcon(ic11);
+            }
+            else{
+                btn[2].setIcon(ic22);
+                btn[5].setIcon(ic22);
+                btn[8].setIcon(ic22);
+            }
+
+            return  true;
+        }
+// DIAGONAL top left to bottom right
+        if (val[0]==let && val[4]==let && val[8]==let){
+            lockBoard();
+            btn[0].setEnabled(true);
+            btn[4].setEnabled(true);
+            btn[8].setEnabled(true);
+            if(let=='X'){
+                btn[0].setIcon(ic11);
+                btn[4].setIcon(ic11);
+                btn[8].setIcon(ic11);
+            }
+            else{
+                btn[0].setIcon(ic22);
+                btn[4].setIcon(ic22);
+                btn[8].setIcon(ic22);
+            }
+
+            return true;
+        }
+
+        //DIAGONAL top right to bottom left
+        if(val[2]==let && val[4]==let && val[6]==let){
+            lockBoard();
+            btn[2].setEnabled(true);
+            btn[4].setEnabled(true);
+            btn[6].setEnabled(true);
+            if(let=='X'){                           //ic1=X
+                btn[2].setIcon(ic11);
+                btn[4].setIcon(ic11);
+                btn[6].setIcon(ic11);
+            }
+            else{
+                btn[2].setIcon(ic22);
+                btn[4].setIcon(ic22);
+                btn[6].setIcon(ic22);
+            }
+
+            return  true;
+        }
+        return false;
+    }
+
+
+
+
+
+
+    boolean checkWinner(char[] val ,int let){
+
+        //row1
+        if (val[0]==let && val[1]==let && val[2]==let){
+            return true;
+        }
+        //ROW 2
+        if(val[3]==let && val[4]==let && val[5]==let){
+            return  true;
+        }
+//ROW 3
+        if (val[6]==let && val[7]==let && val[8]==let){
+            return true;
+        }
+
+        //COLUMN 1
+        if(val[0]==let && val[3]==let && val[6]==let){
+            return  true;
+        }
+
+//COLUMN 2
+        if (val[1]==let && val[4]==let && val[7]==let){
+
+            return true;
+        }
+        //COLUMN 3
+        if(val[2]==let && val[5]==let && val[8]==let){
+            return  true;
+        }
+// DIAGONAL top left to bottom right
+        if (val[0]==let && val[4]==let && val[8]==let){
+            return true;
+        }
+
+        //DIAGONAL top right to bottom left
+        if(val[2]==let && val[4]==let && val[6]==let){
+            return  true;
+        }
+        return false;
+    }
+}
+
+
+
+
+
+
+
+
