@@ -206,3 +206,99 @@ public class StartPage implements ActionListener {
 
     }
 
+
+    /* Defining abstarct methods of interface ActionListener */
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource()==start){
+            FiveGame.gameNumber=1;
+            ThreeGame.gameNumber=1;
+            if(UserOrComputer.user_clicked){
+                if(user1tf.getText().length()>=3){
+                    allChecked1=true;
+                }
+                if(user2tf.getText().length()>=3){
+                    allChecked2=true;
+                }
+
+                if(allChecked1 && allChecked2){
+                    matchPattern=(String) matchType.getSelectedItem();
+                    if(matchPattern.equals("One Game")){
+                        frame.dispose();
+                        for(int p1=0;p1<9;p1++){
+                            OneGame.values_array[p1]=' ';
+                            OneGame.values_array_copy[p1]=' ';
+                        }
+                        OneGame.turn=true;
+                        new OneGame();
+
+                    }
+                    else if(matchPattern.equals("3 Game series")){
+                        frame.dispose();
+                        for(int p1=0;p1<9;p1++){
+                            ThreeGame.values_array[p1]=' ';
+                            ThreeGame.values_array_copy[p1]=' ';
+                        }
+
+
+                        new ThreeGame();
+                    }
+                    else if(matchPattern.equals("5 Game series")){
+                        frame.dispose();
+                        for(int p1=0;p1<9;p1++){
+                            FiveGame.values_array[p1]=' ';
+                            FiveGame.values_array_copy[p1]=' ';
+                        }
+
+                        new FiveGame();
+                    }
+                }
+                else {
+
+                    JOptionPane.showMessageDialog(null,"User name must be greater than 3","Error",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else{
+                matchPattern=(String) matchType.getSelectedItem();
+                if(matchPattern.equals("One Game")){
+                    for(int p=0;p<9;p++){
+                        OneGame.values_array[p]=' ';
+                        OneGame.values_array_copy[p]=' ';
+                    }
+                    OneGame.turn=true;
+                    frame.dispose();
+                    new OneGame();
+                }
+                else if(matchPattern.equals("3 Game series")){
+                    frame.dispose();
+                    ThreeGame.turn=true;
+                    for(int p=0;p<9;p++){
+                        ThreeGame.values_array[p]=' ';
+                        ThreeGame.values_array_copy[p]=' ';
+                    }
+
+                    new ThreeGame();
+                }
+                else if(matchPattern.equals("5 Game series")){
+                    frame.dispose();
+                    FiveGame.turn=true;
+                    for(int p=0;p<9;p++){
+                        FiveGame.values_array[p]=' ';
+                        FiveGame.values_array_copy[p]=' ';
+                    }
+                    new FiveGame();
+
+                }
+            }
+
+
+        }
+
+
+        if(e.getSource()==back){
+            frame.dispose();
+            new UserOrComputer();
+        }
+    }
+}
+
