@@ -55,7 +55,7 @@ The main purpose of this project is to convert this paper-and-pencil game to a s
   ### 1. Using Intelij IDEA IDE
     
     >Step1: Fork this repository
-    >Step2: Click on **code** button at right side
+    >Step2: Click on *code* button at right side
     >Step3: Click on **Download Zip** (download will started)
     >Step4: Extract the file from the file (one folder will extracted from the zip which contains subfolder)
     >Step5: Load that folder in **Intelij IDEA IDE** and click on **run** button.
