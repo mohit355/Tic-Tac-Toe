@@ -58,6 +58,12 @@ The main purpose of this project is to convert this paper-and-pencil game to a s
     >Step2: Click on *code* button at right side
     >Step3: Click on **Download Zip** (download will started)
     >Step4: Extract the file from the file (one folder will extracted from the zip which contains subfolder)
-    >Step5: Load that folder in **Intelij IDEA IDE** and click on **run** button.
+    >Step5: Change the folder name "Tic-Tac-Toe-master" to 'Tic-Tac-Toe' (folder name is same as .iml available in that folder).
+    >Step6: Load that folder in **Intelij IDEA IDE**. (not ready to run need some setup)
+    >Step7: Set src folder as source folder (File-> project structure -> Modules -> src -> Sources)
+    >Step8: Set images folder as Resources ( File-> project structure -> Modules -> src -> Resources)
+    >Step8: Run the program by Right click -> Run  on Main.java.
+    
+    	NOTE: Each step is required . If you miss any step then it will show errors
     
 
