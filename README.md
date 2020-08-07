@@ -13,13 +13,13 @@ The main purpose of this project is to convert this paper-and-pencil game to a s
 	Computer(machine)
   
 ### 1. Two modes of game :
-          	User  vs Computer
-         	User  vs User
+          	>User  vs Computer
+         	>User  vs User
         
 ### 2.  Each game mode has a further three-game type named as follows-
-		   One match game
-   		  Three match game
-  		  Five match game 
+		  >One match game
+   		  >Three match game
+  		  >Five match game 
         
         
 
@@ -35,16 +35,29 @@ The main purpose of this project is to convert this paper-and-pencil game to a s
 ## Key features of My project :
 
 
-### Player selection flexibility:
-		                       Users can either play with friends or can play with the computer.
+   ### Player selection flexibility:
+		>Users can either play with friends or can play with the computer.
  
-### You will be informed when your turn comes :
-                                                    Symbols (0’s or X’’s) will assign to you and whenever you change come then that symbol light up below you name.
+   ### You will be informed when your turn comes :
+                >Symbols (0’s or X’’s) will assign to you and whenever you change come then that symbol light up below you name.
 
-### Flexibility of game mode selection:
-							There are three modes of the game type available (one game, three-game,five-game). So you get the flexibility to select anyone (three-game and five-game types are tournament type)
+   ### Flexibility of game mode selection:
+		>There are three modes of the game type available (one game, three-game,five-game). So you get the flexibility to select anyone
+		(three-game and five-game types are tournament type)
 
-### Result output:
-		 The result of each match will be declared on the screen and when series complete (especially for 3-game and 5-game mode) then you have an option to see the full result of each match and final winner of each series.
+   ### Result output:
+		 >The result of each match will be declared on the screen and when series complete (especially for 3-game and 5-game mode)
+		 then you have an option to see the full result of each match and final winner of each series.
 
+
+## How to run:
+   
+  ### 1. Using Intelij IDEA IDE
+    
+    >Step1: Fork this repository
+    >Step2: Click on **code** button at right side
+    >Step3: Click on **Download Zip** (download will started)
+    >Step4: Extract the file from the file (one folder will extracted from the zip which contains subfolder)
+    >Step5: Load that folder in **Intelij IDEA IDE** and click on **run** button.
+    
 
